@@ -1,0 +1,17 @@
+{
+  "name": "Selenium-rfc-recorder",
+  "version": "1.0.0",
+  "description": "Chrome extension for recording your test run!",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-fixmyjs": "^0.3.0",
+    "grunt-plato": "^1.2.1",
+    "grunt-contrib-watch": "^1.0.0"
+  },
+  "author": "bitmarte"
+}

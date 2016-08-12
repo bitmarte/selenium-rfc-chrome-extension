@@ -1,0 +1,8 @@
+{
+    "extensionName": {
+        "message": "Selenium-rfc-recorder"
+    },
+    "extensionDescription": {
+        "message": "Chrome extension for recording your test run!"
+    }
+}

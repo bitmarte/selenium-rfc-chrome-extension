@@ -44,21 +44,21 @@ function conttextMenuHandler(info, tab) {
 chrome.contextMenus.onClicked.addListener(conttextMenuHandler);
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
-        "title" : "Record success condition",
+        "title" : chrome.i18n.getMessage("ctxMenu_SuccessConditionMain"),
         "type" : "normal",
         "id" : "recSuccessCondition",
         "contexts" : [ "all" ]
     });
     chrome.contextMenus.create({
         "parentId" : "recSuccessCondition",
-        "title" : "Content equals...",
+        "title" : chrome.i18n.getMessage("ctxMenu_SuccessCondition_Equals"),
         "type" : "normal",
         "id" : "recSuccessConditionContentEquals",
         "contexts" : [ "all" ]
     });
     chrome.contextMenus.create({
         "parentId" : "recSuccessCondition",
-        "title" : "Content contains...",
+        "title" : chrome.i18n.getMessage("ctxMenu_SuccessCondition_Contains"),
         "type" : "normal",
         "id" : "recSuccessConditionContentContains",
         "contexts" : [ "all" ]

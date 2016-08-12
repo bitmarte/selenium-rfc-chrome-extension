@@ -1,0 +1,17 @@
+{
+    "extensionName": {
+        "message": "Selenium-rfc-recorder"
+    },
+    "extensionDescription": {
+        "message": "Chrome extension for recording your test run!"
+    },
+    "ctxMenu_SuccessConditionMain": {
+    	"message": "Record success condition"
+    },
+    "ctxMenu_SuccessCondition_Equals": {
+    	"message": "Content equals..."
+    },
+    "ctxMenu_SuccessCondition_Contains": {
+    	"message": "Content contains..."
+    }
+}

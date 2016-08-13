@@ -11,23 +11,31 @@ document.oncontextmenu = function(e) {
 }
 
 document.addEventListener("click", function(e){
-    e = e || window.event;
-	var target = e.target || e.srcElement;
-	console.log('click on xpath: '+getElementInfo(target));
-	chrome.runtime.sendMessage({
-		message : "onClick",
-		xPath : getElementInfo(target)
+	chrome.runtime.sendMessage({message:"recState"}, function(response){
+		if(response.recState) {
+		    e = e || window.event;
+			var target = e.target || e.srcElement;
+			console.log('click on xpath: '+getElementInfo(target));
+			chrome.runtime.sendMessage({
+				message : "onClick",
+				xPath : getElementInfo(target)
+			});
+		}
 	});
 });
 
 document.addEventListener("change", function(e){
-    e = e || window.event;
-	var target = e.target || e.srcElement;
-	console.log('set value on xpath: '+getElementInfo(target)+' | content: '+target.value);
-	chrome.runtime.sendMessage({
-		message : "onChange",
-		xPath : getElementInfo(target),
-		content: e.target.value
+	chrome.runtime.sendMessage({message:"recState"}, function(response){
+		if(getRecState()) {
+		    e = e || window.event;
+			var target = e.target || e.srcElement;
+			console.log('set value on xpath: '+getElementInfo(target)+' | content: '+target.value);
+			chrome.runtime.sendMessage({
+				message : "onChange",
+				xPath : getElementInfo(target),
+				content: e.target.value
+			});
+		}
 	});
 });
 

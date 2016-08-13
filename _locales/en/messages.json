@@ -13,5 +13,11 @@
     },
     "ctxMenu_SuccessCondition_Contains": {
     	"message": "Content contains..."
+    },
+    "ctxMenu_RecStateStart": {
+        "message": "Start recording..."
+    },
+    "ctxMenu_RecStateStop": {
+        "message": "Stop recording"
     }
 }

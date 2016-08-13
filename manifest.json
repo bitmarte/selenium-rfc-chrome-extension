@@ -24,7 +24,6 @@
         "64": "images/icon.png",
         "128": "images/icon.png"
     },
-    "commands": {},
     "permissions": ["activeTab", "gcm", "notifications", "contextMenus", "history"],
     "manifest_version": 2
 }

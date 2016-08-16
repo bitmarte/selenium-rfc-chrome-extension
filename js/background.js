@@ -18,10 +18,6 @@ chrome.browserAction.onClicked.addListener(function(tab){
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    //fields reset
-    window.xpathOfSelectedElement = "";
-    window.contentOfSelectedElement = "";
-
     window.xpathOfSelectedElement = request.xPath;
     switch(request.message) {
         case "onContextMenuClick":
@@ -82,27 +78,32 @@ function pushAction(actionName, content, xpath) {
         "xpath": window.xpathOfSelectedElement || xpath,
         "content": window.contentOfSelectedElement || content
     });
+    //fields reset
+    window.xpathOfSelectedElement = "";
+    window.contentOfSelectedElement = "";
 }
 
 function toggleRec() {
     if(window.recState) {
         chrome.browserAction.setBadgeText({"text":""});
         console.log('Stop recording');
-        console.log(JSON.stringify(window.actions));
-        //Download plan
-        chrome.downloads.download(
-            {
-                "url": URL.createObjectURL(new Blob([JSON.stringify(window.actions)])),
-                "filename": "my-plan.json",
-                "saveAs": true,
-                "headers": [
-                    {
-                        "name": "Content-Type",
-                        "value": "application/json"
-                    }
-                ]
-            }
-        );
+        if(window.actions.length > 0) {
+            console.log(JSON.stringify(window.actions));
+            //Download plan
+            chrome.downloads.download(
+                {
+                    "url": URL.createObjectURL(new Blob([JSON.stringify(window.actions)])),
+                    "filename": "my-plan.json",
+                    "saveAs": true,
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ]
+                }
+            );
+        }
     } else {
         window.actions = [];
         chrome.browserAction.setBadgeText({"text":"rec"});

@@ -55,7 +55,7 @@ function conttextMenuHandler(info, tab) {
             toggleRec();
             break;
         case "recSuccessConditionContentContains":
-            var inputValue = prompt("Check if contains: ", window.contentOfSelectedElement);
+            var inputValue = prompt(chrome.i18n.getMessage("ctxMenu_SuccessCondition_Contains_prompt"), window.contentOfSelectedElement);
             if(inputValue !== null || inputValue === true) {
                 window.contentOfSelectedElement = inputValue;
                 console.log('Success condition on element ('+window.xpathOfSelectedElement+') that contains ['+window.contentOfSelectedElement+']');
@@ -63,7 +63,7 @@ function conttextMenuHandler(info, tab) {
             }
             break;
         case "recSuccessConditionContentEquals":
-            var inputValue = prompt("Check if equals: ", window.contentOfSelectedElement);
+            var inputValue = prompt(chrome.i18n.getMessage("ctxMenu_SuccessCondition_Equals_prompt"), window.contentOfSelectedElement);
             if(inputValue !== null || inputValue === true) {
                 window.contentOfSelectedElement = inputValue;
                 console.log('Success condition on element ('+window.xpathOfSelectedElement+') that equals ['+window.contentOfSelectedElement+']');

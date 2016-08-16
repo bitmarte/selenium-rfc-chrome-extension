@@ -11,9 +11,15 @@
     "ctxMenu_SuccessCondition_Equals": {
     	"message": "Content equals..."
     },
+        "ctxMenu_SuccessCondition_Equals_prompt": {
+        "message": "Content element equals: "
+        },
     "ctxMenu_SuccessCondition_Contains": {
     	"message": "Content contains..."
     },
+        "ctxMenu_SuccessCondition_Contains_prompt": {
+            "message": "Content element contains: "
+        },
     "ctxMenu_RecStateStart": {
         "message": "Start recording..."
     },

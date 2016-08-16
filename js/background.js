@@ -18,6 +18,10 @@ chrome.browserAction.onClicked.addListener(function(tab){
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    //fields reset
+    window.xpathOfSelectedElement = "";
+    window.contentOfSelectedElement = "";
+
     window.xpathOfSelectedElement = request.xPath;
     switch(request.message) {
         case "onContextMenuClick":
@@ -72,22 +76,12 @@ chrome.runtime.onInstalled.addListener(function() {
     buildContextMenu();
 });
 
-function pushAction(actionName, param) {
-    if(window.contentOfSelectedElement || param) {
-        window.actions.push({
-            "browserAction" : actionName,
-            "xpath": window.xpathOfSelectedElement,
-            "content": window.contentOfSelectedElement || param
-        });
-    } else {
-        window.actions.push({
-            "browserAction" : actionName,
-            "xpath": window.xpathOfSelectedElement
-        });
-    }
-    //reset fields
-    window.xpathOfSelectedElement = "";
-    window.xpathOfSelectedElement = "";
+function pushAction(actionName, content, xpath) {
+    window.actions.push({
+        "browserAction" : actionName,
+        "xpath": window.xpathOfSelectedElement || xpath,
+        "content": window.contentOfSelectedElement || content
+    });
 }
 
 function toggleRec() {

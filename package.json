@@ -4,7 +4,8 @@
   "description": "Chrome extension for recording your test run!",
   "dependencies": {
     "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.0.0"
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-remove-logging": "^0.2.0"
   },
   "devDependencies": {
     "grunt-contrib-copy": "^1.0.0",

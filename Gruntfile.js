@@ -27,6 +27,11 @@ module.exports = function(grunt) {
 				]
 			}
 		},
+		removelogging: {
+			dist: {
+				src: "tmp/js/**/*.js"
+			}
+		},
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -34,7 +39,8 @@ module.exports = function(grunt) {
 			dist: {
 				files: {
 					'dist/js/background-min.js': ['tmp/js/background.js'],
-					'dist/js/content-min.js': ['tmp/js/content.js']
+					'dist/js/content-min.js': ['tmp/js/content.js'],
+					'dist/js/ctx-menu-min.js': ['tmp/js/ctx-menu.js']
 				}
 			}
 		},
@@ -86,6 +92,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-plato');
 	grunt.loadNpmTasks('grunt-fixmyjs');
+	grunt.loadNpmTasks("grunt-remove-logging");
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -98,6 +105,17 @@ module.exports = function(grunt) {
 			'copy',
 			'clean:tmp',
 			'watch'
+		]
+	);
+
+	grunt.registerTask(
+		'build',[
+			'clean:dist',
+			'fixmyjs',
+			'removelogging',
+			'uglify',
+			'copy',
+			'clean:tmp'
 		]
 	);
 };

@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "background": {
         "scripts": [
+            "js/ctx-menu-min.js",
             "js/background-min.js"
         ]
     },

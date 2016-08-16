@@ -64,6 +64,9 @@ function conttextMenuHandler(info, tab) {
                 pushAction('SUCCESS_CONDITION_EQUALS');
             }
             break;
+        case "removeLastAction":
+            window.actions.pop();
+            break;
         default:
             console.log('No reg action!');
             break;
@@ -87,6 +90,8 @@ function pushAction(actionName, content, xpath) {
     //fields reset
     window.xpathOfSelectedElement = "";
     window.contentOfSelectedElement = "";
+
+    buildContextMenu();
 }
 
 function toggleRec() {
@@ -148,6 +153,14 @@ function buildContextMenu() {
             "id" : "recStateStop",
             "contexts" : [ "all" ]
         });
+        if(window.actions.length > 0) {
+            chrome.contextMenus.create({
+                "title" : chrome.i18n.getMessage("ctxMenu_RemoveLastAction"),
+                "type" : "normal",
+                "id" : "removeLastAction",
+                "contexts" : [ "all" ]
+            });
+        }
     } else {
         chrome.contextMenus.create({
             "title" : chrome.i18n.getMessage("ctxMenu_RecStateStart"),

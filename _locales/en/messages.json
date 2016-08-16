@@ -19,5 +19,8 @@
     },
     "ctxMenu_RecStateStop": {
         "message": "Stop recording"
+    },
+    "ctxMenu_RemoveLastAction": {
+        "message": "Remove last action"
     }
 }

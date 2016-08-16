@@ -26,7 +26,7 @@ document.addEventListener("click", function(e){
 
 document.addEventListener("change", function(e){
 	chrome.runtime.sendMessage({message:"recState"}, function(response){
-		if(getRecState()) {
+		if(response.recState) {
 		    e = e || window.event;
 			var target = e.target || e.srcElement;
 			console.log('set value on xpath: '+getElementInfo(target)+' | content: '+target.value);

@@ -8,7 +8,7 @@ chrome.history.onVisited.addListener(function(historyItem) {
         var visitItem = visitItems[visitItems.length-1];
         if(visitItem.transition == 'typed') {
             console.log('Go to url ['+historyItem.url+']');
-            pushAction('GO_TO_URL');
+            pushAction('GO_TO_URL', historyItem.url);
         }
     });
 });
@@ -72,12 +72,22 @@ chrome.runtime.onInstalled.addListener(function() {
     buildContextMenu();
 });
 
-function pushAction(actionName) {
-    window.actions.push({
-        "browserAction" : actionName,
-        "xpath": window.xpathOfSelectedElement,
-        "content": window.contentOfSelectedElement
-    });
+function pushAction(actionName, param) {
+    if(window.contentOfSelectedElement || param) {
+        window.actions.push({
+            "browserAction" : actionName,
+            "xpath": window.xpathOfSelectedElement,
+            "content": window.contentOfSelectedElement || param
+        });
+    } else {
+        window.actions.push({
+            "browserAction" : actionName,
+            "xpath": window.xpathOfSelectedElement
+        });
+    }
+    //reset fields
+    window.xpathOfSelectedElement = "";
+    window.xpathOfSelectedElement = "";
 }
 
 function toggleRec() {
@@ -85,6 +95,20 @@ function toggleRec() {
         chrome.browserAction.setBadgeText({"text":""});
         console.log('Stop recording');
         console.log(JSON.stringify(window.actions));
+        //Download plan
+        chrome.downloads.download(
+            {
+                "url": URL.createObjectURL(new Blob([JSON.stringify(window.actions)])),
+                "filename": "my-plan.json",
+                "saveAs": true,
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json"
+                    }
+                ]
+            }
+        );
     } else {
         window.actions = [];
         chrome.browserAction.setBadgeText({"text":"rec"});

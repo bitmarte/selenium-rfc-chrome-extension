@@ -49,14 +49,20 @@ function conttextMenuHandler(info, tab) {
             toggleRec();
             break;
         case "recSuccessConditionContentContains":
-            window.contentOfSelectedElement = prompt("Check if contains: ", window.contentOfSelectedElement);
-            console.log('Success condition on element ('+window.xpathOfSelectedElement+') that contains ['+window.contentOfSelectedElement+']');
-            pushAction('SUCCESS_CONDITION_CONTAINS');
+            var inputValue = prompt("Check if contains: ", window.contentOfSelectedElement);
+            if(inputValue !== null || inputValue === true) {
+                window.contentOfSelectedElement = inputValue;
+                console.log('Success condition on element ('+window.xpathOfSelectedElement+') that contains ['+window.contentOfSelectedElement+']');
+                pushAction('SUCCESS_CONDITION_CONTAINS');
+            }
             break;
         case "recSuccessConditionContentEquals":
-            window.contentOfSelectedElement = prompt("Check if equals: ", window.contentOfSelectedElement);
-            console.log('Success condition on element ('+window.xpathOfSelectedElement+') that equals ['+window.contentOfSelectedElement+']');
-            pushAction('SUCCESS_CONDITION_EQUALS');
+            var inputValue = prompt("Check if equals: ", window.contentOfSelectedElement);
+            if(inputValue !== null || inputValue === true) {
+                window.contentOfSelectedElement = inputValue;
+                console.log('Success condition on element ('+window.xpathOfSelectedElement+') that equals ['+window.contentOfSelectedElement+']');
+                pushAction('SUCCESS_CONDITION_EQUALS');
+            }
             break;
         default:
             console.log('No reg action!');

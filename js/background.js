@@ -17,6 +17,12 @@ chrome.history.onVisited.addListener(function(historyItem) {
 
 chrome.browserAction.onClicked.addListener(function(tab){
     toggleRec();
+    if(window.recState) {
+        chrome.windows.get(tab.windowId, function(w) {
+            console.log('window size: ['+w.width+'x'+w.height+']');
+            //TODO pushAction for resizing window
+        }); 
+    }
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {

@@ -109,7 +109,7 @@ module.exports = function(grunt) {
 	);
 
 	grunt.registerTask(
-		'build',[
+		'dist',[
 			'clean:dist',
 			'fixmyjs',
 			'removelogging',

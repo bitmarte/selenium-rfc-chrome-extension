@@ -92,8 +92,7 @@ module.exports = function(grunt) {
 			scripts: {
 				files: [
 					'js/**',
-					'_locales/**',
-					'manifest.json'
+					'_locales/**'
 				],
 				tasks: [
 					'clean:dist',

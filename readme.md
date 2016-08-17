@@ -1,4 +1,4 @@
-# ![Selenium-rfc-recorder](./images/icon.png =40x) Selenium-rfc-recorder
+# ![Selenium-rfc-recorder](./images/icon.png  | width=40) Selenium-rfc-recorder
 
 ## Requirements
  - node v4.4.3

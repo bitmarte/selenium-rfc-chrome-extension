@@ -1,4 +1,4 @@
-# Selenium-rfc-recorder
+# ![Selenium-rfc-recorder](images/icon.png)
 
 ## Requirements
  - node v4.4.3

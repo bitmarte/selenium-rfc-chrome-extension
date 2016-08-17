@@ -20,8 +20,8 @@ First of all, clone this repo into your workspace directory.
  - Load an unpacked extensions pointing your dist dir (/<myWorkspace>/selenium-rfc-chrome-extension/dist)
  - Reload whenever is necessary during your development
 
- **Notes**
- *'replace'* task will not execute on watch!
+**Notes**
+*'replace'* task will not execute on watch!
 
 ## Dist
 

@@ -4,13 +4,15 @@ window.recState;
 window.actions = [];
 
 chrome.history.onVisited.addListener(function(historyItem) {
-    chrome.history.getVisits({"url":historyItem.url}, function(visitItems){
-        var visitItem = visitItems[visitItems.length-1];
-        if(visitItem.transition == 'typed') {
-            console.log('Go to url ['+historyItem.url+']');
-            pushAction('GO_TO_URL', historyItem.url);
-        }
-    });
+    if(window.recState) {
+        chrome.history.getVisits({"url":historyItem.url}, function(visitItems){
+            var visitItem = visitItems[visitItems.length-1];
+            if(visitItem.transition == 'typed') {
+                console.log('Go to url ['+historyItem.url+']');
+                pushAction('GO_TO_URL', historyItem.url);
+            }
+        });
+    }
 });
 
 chrome.browserAction.onClicked.addListener(function(tab){

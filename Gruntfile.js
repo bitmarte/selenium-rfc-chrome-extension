@@ -12,6 +12,26 @@ module.exports = function(grunt) {
 				  }
 			}
 		},
+		replace: {
+			dist: {
+				src: ['manifest.json'],
+				dest: 'tmp/manifest.json',
+				replacements: [
+					{
+						from: '%ext_version%',
+						to: '<%= pkg.version %>'
+					},
+					{
+						from: '%ext_name%',
+						to: '<%= pkg.name %>'
+					},
+					{
+						from: '%ext_description%',
+						to: '<%= pkg.description %>'
+					}
+				]
+			}
+		},
 		fixmyjs: {
 			options: {
 				config: '.jshintrc'
@@ -61,7 +81,7 @@ module.exports = function(grunt) {
 					},
 					{
 						expand: false,
-						src: ['manifest.json'],
+						src: ['tmp/manifest.json'],
 						dest: 'dist/manifest.json',
 						filter: 'isFile'
 					}
@@ -91,6 +111,7 @@ module.exports = function(grunt) {
 	// Load plugins
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-plato');
+	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-fixmyjs');
 	grunt.loadNpmTasks("grunt-remove-logging");
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -100,6 +121,7 @@ module.exports = function(grunt) {
 	grunt.registerTask(
 		'default',[
 			'clean:dist',
+			'replace',
 			'fixmyjs',
 			'uglify',
 			'copy',
@@ -111,6 +133,7 @@ module.exports = function(grunt) {
 	grunt.registerTask(
 		'dist',[
 			'clean:dist',
+			'replace',
 			'fixmyjs',
 			'removelogging',
 			'uglify',

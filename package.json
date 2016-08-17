@@ -10,9 +10,10 @@
   "devDependencies": {
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-fixmyjs": "^0.3.0",
     "grunt-plato": "^1.2.1",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-text-replace": "^0.4.0"
   },
   "author": "bitmarte"
 }

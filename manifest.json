@@ -1,8 +1,8 @@
 {
-    "name": "__MSG_extensionName__",
-    "description": "__MSG_extensionDescription__",
+    "name": "%ext_name%",
+    "description": "%ext_description%",
     "default_locale": "en",
-    "version": "1.0.0",
+    "version": "%ext_version%",
     "background": {
         "scripts": [
             "js/ctx-menu-min.js",

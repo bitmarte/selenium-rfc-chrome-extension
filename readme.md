@@ -20,9 +20,9 @@ First of all, clone this repo into your workspace directory.
  - Load an unpacked extensions pointing your dist dir (/<myWorkspace>/selenium-rfc-chrome-extension/dist)
  - Reload whenever is necessary during your development
 
- ## Dist
+## Dist
 
- Generate a dist release, ready for your Google Chrome browser
+Generate a dist release, ready for your Google Chrome browser
 
  	$ cd /<myWorkspace>/selenium-rfc-chrome-extension
 	$ grunt -v dist

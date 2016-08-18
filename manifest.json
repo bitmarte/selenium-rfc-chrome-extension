@@ -4,11 +4,7 @@
     "default_locale": "en",
     "version": "%ext_version%",
     "background": {
-        "scripts": [
-            "js/ctx-menu-min.js",
-            "js/background-min.js",
-            "js/startup-min.js"
-        ]
+        "scripts": ["js/background-min.js"]
     },
     "content_scripts": [{
         "persistent": false,

@@ -1,45 +1,4 @@
-document.oncontextmenu = function(e) {
-	e = e || window.event;
-	var target = e.target || e.srcElement;
-	chrome.runtime.sendMessage({
-		message : "onContextMenuClick",
-		xPath : getElementInfo(target),
-		content : target.textContent
-	});
-
-	return true;
-}
-
-document.addEventListener("click", function(e){
-	chrome.runtime.sendMessage({message:"recState"}, function(response){
-		if(response.recState) {
-		    e = e || window.event;
-			var target = e.target || e.srcElement;
-			console.log('click on xpath: '+getElementInfo(target));
-			chrome.runtime.sendMessage({
-				message : "onClick",
-				xPath : getElementInfo(target)
-			});
-		}
-	});
-});
-
-document.addEventListener("change", function(e){
-	chrome.runtime.sendMessage({message:"recState"}, function(response){
-		if(response.recState) {
-		    e = e || window.event;
-			var target = e.target || e.srcElement;
-			console.log('set value on xpath: '+getElementInfo(target)+' | content: '+target.value);
-			chrome.runtime.sendMessage({
-				message : "onChange",
-				xPath : getElementInfo(target),
-				content: e.target.value
-			});
-		}
-	});
-});
-
-var getElementInfo = function selectedElement(element) {
+var getElementInfo_Custom = function selectedElement(element) {
 	// Get sibling information.
 	var getSibling = function(e, isFull) {
 		var sibling = {

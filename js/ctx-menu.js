@@ -59,7 +59,11 @@ function conttextMenuHandler(info, tab) {
             if(inputValue !== null || inputValue === true) {
                 window.contentOfSelectedElement = inputValue;
                 console.log('Success condition on element ('+window.xpathOfSelectedElement+') that contains ['+window.contentOfSelectedElement+']');
-                pushAction('SUCCESS_CONDITION_CONTAINS');
+                pushAction({
+                    "browserAction" : window.successconditioncontains_browseraction,
+                    "xpath": window.xpathOfSelectedElement,
+                    "content": window.contentOfSelectedElement
+                });
             }
             break;
         case "recSuccessConditionContentEquals":
@@ -67,7 +71,11 @@ function conttextMenuHandler(info, tab) {
             if(inputValue !== null || inputValue === true) {
                 window.contentOfSelectedElement = inputValue;
                 console.log('Success condition on element ('+window.xpathOfSelectedElement+') that equals ['+window.contentOfSelectedElement+']');
-                pushAction('SUCCESS_CONDITION_EQUALS');
+                pushAction({
+                    "browserAction" : window.successconditionequals_browseraction,
+                    "xpath": window.xpathOfSelectedElement,
+                    "content": window.contentOfSelectedElement
+                });
             }
             break;
         case "removeLastAction":

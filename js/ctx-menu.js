@@ -81,8 +81,3 @@ function conttextMenuHandler(info, tab) {
 };
 
 chrome.contextMenus.onClicked.addListener(conttextMenuHandler);
-chrome.runtime.onInstalled.addListener(function() {
-    window.actions = [];
-    chrome.browserAction.setBadgeBackgroundColor({"color":"#BF0B0B"});
-    buildContextMenu();
-});

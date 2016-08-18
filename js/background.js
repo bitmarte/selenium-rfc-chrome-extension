@@ -1,16 +1,30 @@
+// browser actions
+window.gotourl_browseraction = "GO_TO_URL";
+window.click_browseraction = "CLICK";
+window.set_browseraction = "SET";
+window.windowresize_browseraction = "WINDOW_RESIZE"; 
+
+// runtime variables
 window.xpathOfSelectedElement = "";
 window.contentOfSelectedElement = "";
 window.recState;
+window.dimension_w = "";
+window.dimension_h = "";
 window.actions = [];
 
 chrome.history.onVisited.addListener(function(historyItem) {
-    chrome.history.getVisits({"url":historyItem.url}, function(visitItems){
-        var visitItem = visitItems[visitItems.length-1];
-        if(visitItem.transition == 'typed') {
-            console.log('Go to url ['+historyItem.url+']');
-            pushAction('GO_TO_URL', historyItem.url);
-        }
-    });
+    if(window.recState) {
+        chrome.history.getVisits({"url":historyItem.url}, function(visitItems){
+            var visitItem = visitItems[visitItems.length-1];
+            if(visitItem.transition == 'typed') {
+                console.log('Go to url ['+historyItem.url+']');
+                pushAction({
+                    "browserAction" : window.gotourl_browseraction,
+                    "url" : historyItem.url
+                });
+            }
+        });
+    }
 });
 
 chrome.browserAction.onClicked.addListener(function(tab){
@@ -25,12 +39,19 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             break;
         case "onClick":
             console.log('Click on element ['+window.xpathOfSelectedElement+']');
-            pushAction('CLICK');
+            pushAction({
+                "browserAction" : window.click_browseraction,
+                "xpath": window.xpathOfSelectedElement
+            });
             break;
         case "onChange":
             window.contentOfSelectedElement = request.content;
             console.log('Set value ['+window.contentOfSelectedElement+'] on element ['+window.xpathOfSelectedElement+']');
-            pushAction('SET');
+            pushAction({
+                "browserAction" : window.set_browseraction,
+                "xpath": window.xpathOfSelectedElement,
+                "content": window.contentOfSelectedElement
+            });
             break;
         case "recState":
             sendResponse({recState:window.recState});
@@ -40,13 +61,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
-function pushAction(actionName, content, xpath) {
-    window.actions.push({
-        "browserAction" : actionName,
-        "xpath": window.xpathOfSelectedElement || xpath,
-        "content": window.contentOfSelectedElement || content
+function pushAction(action) {
+    chrome.windows.getCurrent(function(w) {
+        if(w.width != window.dimension_w || w.height != window.dimension_h) {
+            console.log('resize window: ['+w.width+'x'+w.height+']');
+            window.dimension_w = w.width;
+            window.dimension_h = w.height;
+            window.actions.push({
+                "browserAction" : window.windowresize_browseraction,
+                "width": window.dimension_w,
+                "height": window.dimension_h
+            });
+        }
     });
+
+    window.actions.push(action);
     //fields reset
+    console.log("reset xpathOfSelectedElement and contentOfSelectedElement");
     window.xpathOfSelectedElement = "";
     window.contentOfSelectedElement = "";
 
@@ -74,6 +105,10 @@ function toggleRec() {
                 }
             );
         }
+        //reset window size
+        console.log("reset window dimension");
+        window.dimension_w = "";
+        window.dimension_h = "";
     } else {
         window.actions = [];
         chrome.browserAction.setBadgeText({"text":"rec"});

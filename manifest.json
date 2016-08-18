@@ -6,7 +6,8 @@
     "background": {
         "scripts": [
             "js/ctx-menu-min.js",
-            "js/background-min.js"
+            "js/background-min.js",
+            "js/startup-min.js"
         ]
     },
     "content_scripts": [{

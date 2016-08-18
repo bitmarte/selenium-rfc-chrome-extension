@@ -60,7 +60,8 @@ module.exports = function(grunt) {
 				files: {
 					'dist/js/background-min.js': ['tmp/js/background.js'],
 					'dist/js/content-min.js': ['tmp/js/content.js'],
-					'dist/js/ctx-menu-min.js': ['tmp/js/ctx-menu.js']
+					'dist/js/ctx-menu-min.js': ['tmp/js/ctx-menu.js'],
+					'dist/js/startup-min.js': ['tmp/js/startup.js']
 				}
 			}
 		},
@@ -96,6 +97,7 @@ module.exports = function(grunt) {
 				],
 				tasks: [
 					'clean:dist',
+					'replace',
 					'fixmyjs',
 					'uglify',
 					'copy',

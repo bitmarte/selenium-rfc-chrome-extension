@@ -2,7 +2,7 @@
 window.gotourl_browseraction = "GO_TO_URL";
 window.click_browseraction = "CLICK";
 window.set_browseraction = "SET";
-window.windowresize_browseraction = "WINDOW_RESIZE";
+window.windowresize_browseraction = "WINDOW_RESIZE"; 
 
 // runtime variables
 window.xpathOfSelectedElement = "";

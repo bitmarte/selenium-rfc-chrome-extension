@@ -58,10 +58,16 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'dist/js/background-min.js': ['tmp/js/background.js'],
-					'dist/js/content-min.js': ['tmp/js/content.js'],
-					'dist/js/ctx-menu-min.js': ['tmp/js/ctx-menu.js'],
-					'dist/js/startup-min.js': ['tmp/js/startup.js']
+					'dist/js/background-min.js': [
+						'tmp/js/background/background.js',
+						'tmp/js/background/ctx-menu.js',
+						'tmp/js/background/startup.js'
+					],
+					'dist/js/content-min.js': [
+						'tmp/js/content/content.js',
+						'tmp/js/xpath-impl/xpath-custom.js',
+						'tmp/js/xpath-impl/xpath-moz.js'
+					]
 				}
 			}
 		},

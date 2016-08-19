@@ -31,5 +31,8 @@
     },
     "ctxMenu_ChangeXpathElementExtrator": {
         "message": "Change xpath order..."
+    },
+    "onStopRequest_msg": {
+        "message": "Have you finished?"
     }
 }

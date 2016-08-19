@@ -35,6 +35,25 @@ function buildContextMenu() {
                 "id" : "removeLastAction",
                 "contexts" : [ "all" ]
             });
+
+            if(window.actions[window.actions.length-1].xpath && window.actions[window.actions.length-1].xpath.length > 1) {
+                chrome.contextMenus.create({
+                    "title" : chrome.i18n.getMessage("ctxMenu_ChangeXpathElementExtrator"),
+                    "type" : "normal",
+                    "id" : "changeXpathElementExtrator",
+                    "contexts" : [ "all" ]
+                });
+                window.actions[window.actions.length-1].xpath.forEach(function(item, index) {
+                    chrome.contextMenus.create({
+                        "parentId" : "changeXpathElementExtrator",
+                        "title" : window.actions[window.actions.length-1].browserAction+': '+item,
+                        "type" : "radio",
+                        "checked" : index === 0,
+                        "id" : "changeXpathElementExtrator_"+index,
+                        "contexts" : [ "all" ]
+                    });
+                });
+            }
         }
     } else {
         chrome.contextMenus.create({
@@ -84,7 +103,15 @@ function conttextMenuHandler(info, tab) {
             window.actions.pop();
             break;
         default:
-            console.log('No reg action!');
+            if(info.menuItemId.startsWith('changeXpathElementExtrator_')) {
+                var i = info.menuItemId.substring(info.menuItemId.indexOf('_')+1);
+                var el = window.actions[window.actions.length-1].xpath[i];
+                window.actions[window.actions.length-1].xpath.splice(i, 1);
+                window.actions[window.actions.length-1].xpath.splice(0, 0, el);
+            }
+            else {
+                console.log('No reg action!');
+            }
             break;
     }
     buildContextMenu();

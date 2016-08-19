@@ -75,15 +75,14 @@ function pushAction(action) {
                 "height": window.dimension_h
             });
         }
+        window.actions.push(action);
+        //fields reset
+        console.log("reset xpathOfSelectedElement and contentOfSelectedElement");
+        window.xpathOfSelectedElement = "";
+        window.contentOfSelectedElement = "";
+
+        buildContextMenu();
     });
-
-    window.actions.push(action);
-    //fields reset
-    console.log("reset xpathOfSelectedElement and contentOfSelectedElement");
-    window.xpathOfSelectedElement = "";
-    window.contentOfSelectedElement = "";
-
-    buildContextMenu();
 }
 
 function toggleRec() {

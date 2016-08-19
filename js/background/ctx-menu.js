@@ -63,7 +63,12 @@ function buildContextMenu() {
             "contexts" : [ "all" ]
         });
     }
-    
+    chrome.contextMenus.create({
+        "title" : chrome.i18n.getMessage("ctxMenu_ShowXpathSelectedElement"),
+        "type" : "normal",
+        "id" : "showXpathSelectedElement",
+        "contexts" : [ "all" ]
+    });
 }
 
 function conttextMenuHandler(info, tab) {
@@ -101,6 +106,20 @@ function conttextMenuHandler(info, tab) {
         case "removeLastAction":
             console.log('remove last recorded action');
             window.actions.pop();
+            break;
+        case "showXpathSelectedElement":
+            var xpathString = "";
+            if(window.xpathOfSelectedElement.length > 1) {
+                window.xpathOfSelectedElement.forEach(function(item, index) {
+                    xpathString += ' '+(index+1)+': '+item;
+                });
+            } else if(window.xpathOfSelectedElement.length == 1) {
+                xpathString = window.xpathOfSelectedElement[0];
+            } else {
+                xpathString = chrome.i18n.getMessage("noXpathForElement_msg");
+            }
+            //TODO: copy into clickboard
+            prompt(chrome.i18n.getMessage("ctxMenu_ShowXpathSelectedElement"), xpathString);
             break;
         default:
             if(info.menuItemId.startsWith('changeXpathElementExtrator_')) {

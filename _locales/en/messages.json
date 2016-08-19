@@ -28,5 +28,17 @@
     },
     "ctxMenu_RemoveLastAction": {
         "message": "Remove last action"
+    },
+    "ctxMenu_ChangeXpathElementExtrator": {
+        "message": "Change xpath order..."
+    },
+    "ctxMenu_ShowXpathSelectedElement": {
+        "message": "Show Xpath of selected element"
+    },
+    "onStopRequest_msg": {
+        "message": "Have you finished?"
+    },
+    "noXpathForElement_msg": {
+        "message": "No Xpath found for this element!"
     }
 }

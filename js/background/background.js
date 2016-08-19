@@ -75,47 +75,58 @@ function pushAction(action) {
                 "height": window.dimension_h
             });
         }
+        window.actions.push(action);
+        //fields reset
+        console.log("reset xpathOfSelectedElement and contentOfSelectedElement");
+        window.xpathOfSelectedElement = "";
+        window.contentOfSelectedElement = "";
+
+        buildContextMenu();
     });
-
-    window.actions.push(action);
-    //fields reset
-    console.log("reset xpathOfSelectedElement and contentOfSelectedElement");
-    window.xpathOfSelectedElement = "";
-    window.contentOfSelectedElement = "";
-
-    buildContextMenu();
 }
 
 function toggleRec() {
     if(window.recState) {
-        chrome.browserAction.setBadgeText({"text":""});
-        console.log('Stop recording');
         if(window.actions.length > 0) {
-            console.log(JSON.stringify(window.actions));
-            //Download plan
-            chrome.downloads.download(
-                {
-                    "url": URL.createObjectURL(new Blob([JSON.stringify(window.actions)])),
-                    "filename": "my-plan.json",
-                    "saveAs": true,
-                    "headers": [
-                        {
-                            "name": "Content-Type",
-                            "value": "application/json"
-                        }
-                    ]
-                }
-            );
+            var onStopRequest = confirm(chrome.i18n.getMessage("onStopRequest_msg"));
+            if (onStopRequest) {
+                chrome.browserAction.setBadgeText({"text":""});
+                console.log('Stop recording');
+                console.log(JSON.stringify(window.actions));
+                //Download plan
+                chrome.downloads.download(
+                    {
+                        "url": URL.createObjectURL(new Blob([JSON.stringify(window.actions)])),
+                        "filename": "my-plan.json",
+                        "saveAs": true,
+                        "headers": [
+                            {
+                                "name": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                );
+                //reset window size
+                console.log("reset window dimension");
+                window.dimension_w = "";
+                window.dimension_h = "";
+                window.recState = !window.recState;
+            }
+        } else {
+            chrome.browserAction.setBadgeText({"text":""});
+            console.log('Stop recording');
+            //reset window size
+            console.log("reset window dimension");
+            window.dimension_w = "";
+            window.dimension_h = "";
+            window.recState = !window.recState;
         }
-        //reset window size
-        console.log("reset window dimension");
-        window.dimension_w = "";
-        window.dimension_h = "";
     } else {
         window.actions = [];
         chrome.browserAction.setBadgeText({"text":"rec"});
         console.log('Start recording...');
+        window.recState = !window.recState;
     }
-    window.recState = !window.recState;
     buildContextMenu();
 }

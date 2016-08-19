@@ -3,7 +3,7 @@ document.oncontextmenu = function(e) {
 	var target = e.target || e.srcElement;
 	chrome.runtime.sendMessage({
 		message : "onContextMenuClick",
-		xPath : getXpath(target),
+		xPath : getXpaths(target),
 		content : target.textContent
 	});
 
@@ -15,10 +15,10 @@ document.addEventListener("click", function(e){
 		if(response.recState) {
 		    e = e || window.event;
 			var target = e.target || e.srcElement;
-			console.log('click on xpath: '+getXpath(target));
+			console.log('click on xpath: '+getXpaths(target));
 			chrome.runtime.sendMessage({
 				message : "onClick",
-				xPath : getXpath(target)
+				xPath : getXpaths(target)
 			});
 		}
 	});
@@ -29,23 +29,32 @@ document.addEventListener("change", function(e){
 		if(response.recState) {
 		    e = e || window.event;
 			var target = e.target || e.srcElement;
-			console.log('set value on xpath: '+getXpath(target)+' | content: '+target.value);
+			console.log('set value on xpath: '+getXpaths(target)+' | content: '+target.value);
 			chrome.runtime.sendMessage({
 				message : "onChange",
-				xPath : getXpath(target),
+				xPath : getXpaths(target),
 				content: e.target.value
 			});
 		}
 	});
 });
 
-function getXpath(e) {
+// return unique elements in the array, contains different xpath for the same element based on the implementation
+function getXpaths(e) {
 	var xpaths = [];
-	//push xpath into array, calling different xpath-finder implementations
 	xpaths.push(getElementInfo_Custom(e));
 	xpaths.push(getElementInfo_Moz(e));
+	//put here your implementation
 
-	//TODO choose the best xpath!
+	var uniqueXpaths = function(xs) {
+		var seen = {}
+		return xs.filter(function(x) {
+			if (seen[x])
+			return
+			seen[x] = true
+			return x
+		});
+	}
 
-	return xpaths[0];
+	return uniqueXpaths(xpaths);
 }

@@ -79,6 +79,7 @@ function conttextMenuHandler(info, tab) {
             }
             break;
         case "removeLastAction":
+            console.log('remove last recorded action');
             window.actions.pop();
             break;
         default:

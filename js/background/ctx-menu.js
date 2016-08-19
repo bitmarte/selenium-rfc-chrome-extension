@@ -2,32 +2,33 @@ function buildContextMenu() {
     chrome.contextMenus.removeAll();
     if (window.recState) {
         chrome.contextMenus.create({
-            "title" : chrome.i18n.getMessage("ctxMenu_SuccessConditionMain"),
-            "type" : "normal",
-            "id" : "recSuccessCondition",
-            "contexts" : [ "all" ]
-        });
-            chrome.contextMenus.create({
-                "parentId" : "recSuccessCondition",
-                "title" : chrome.i18n.getMessage("ctxMenu_SuccessCondition_Equals"),
-                "type" : "normal",
-                "id" : "recSuccessConditionContentEquals",
-                "contexts" : [ "all" ]
-            });
-            chrome.contextMenus.create({
-                "parentId" : "recSuccessCondition",
-                "title" : chrome.i18n.getMessage("ctxMenu_SuccessCondition_Contains"),
-                "type" : "normal",
-                "id" : "recSuccessConditionContentContains",
-                "contexts" : [ "all" ]
-            });
-        chrome.contextMenus.create({
             "title" : chrome.i18n.getMessage("ctxMenu_RecStateStop"),
             "type" : "normal",
             "id" : "recStateStop",
             "contexts" : [ "all" ]
         });
         if(window.actions.length > 0) {
+            chrome.contextMenus.create({
+                "title" : chrome.i18n.getMessage("ctxMenu_SuccessConditionMain"),
+                "type" : "normal",
+                "id" : "recSuccessCondition",
+                "contexts" : [ "all" ]
+            });
+                chrome.contextMenus.create({
+                    "parentId" : "recSuccessCondition",
+                    "title" : chrome.i18n.getMessage("ctxMenu_SuccessCondition_Equals"),
+                    "type" : "normal",
+                    "id" : "recSuccessConditionContentEquals",
+                    "contexts" : [ "all" ]
+                });
+                chrome.contextMenus.create({
+                    "parentId" : "recSuccessCondition",
+                    "title" : chrome.i18n.getMessage("ctxMenu_SuccessCondition_Contains"),
+                    "type" : "normal",
+                    "id" : "recSuccessConditionContentContains",
+                    "contexts" : [ "all" ]
+                });
+
             chrome.contextMenus.create({
                 "title" : chrome.i18n.getMessage("ctxMenu_RemoveLastAction"),
                 "type" : "normal",

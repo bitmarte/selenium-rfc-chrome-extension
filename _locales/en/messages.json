@@ -28,5 +28,8 @@
     },
     "ctxMenu_RemoveLastAction": {
         "message": "Remove last action"
+    },
+    "ctxMenu_ChangeXpathElementExtrator": {
+        "message": "Change xpath order..."
     }
 }

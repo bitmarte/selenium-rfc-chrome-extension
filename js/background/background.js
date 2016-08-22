@@ -2,6 +2,7 @@
 window.gotourl_browseraction = "GO_TO_URL";
 window.click_browseraction = "CLICK";
 window.set_browseraction = "SET";
+window.scroll_browseraction = "SCROLL";
 window.windowresize_browseraction = "WINDOW_RESIZE";
 window.successconditionequals_browseraction = "SUCCESS_CONDITION_EQUALS";
 window.successconditioncontains_browseraction = "SUCCESS_CONDITION_CONTAINS";
@@ -53,6 +54,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 "browserAction" : window.set_browseraction,
                 "xpath": window.xpathOfSelectedElement,
                 "content": window.contentOfSelectedElement
+            });
+            break;
+        case "onScroll":
+            window.contentOfSelectedElement = request.content;
+            console.log('scroll on element xpath ['+window.xpathOfSelectedElement+'], top ['+request.top+'] left['+request.left+']');
+            pushAction({
+                "browserAction" : window.scroll_browseraction,
+                "xpath": window.xpathOfSelectedElement,
+                "top": request.top,
+                "left": request.left
             });
             break;
         case "recState":

@@ -39,6 +39,22 @@ document.addEventListener("change", function(e){
 	});
 });
 
+document.addEventListener("scroll", function(e){
+	chrome.runtime.sendMessage({message:"recState"}, function(response){
+		if(response.recState) {
+		    e = e || window.event;
+			var target = e.target.scrollingElement || e.srcElement.scrollingElement;
+			console.log('scroll on element xpath ['+getXpaths(target)+'], top ['+e.target.scrollingElement.scrollTop+'] left['+e.target.scrollingElement.scrollLeft+']');
+			chrome.runtime.sendMessage({
+				message : "onScroll",
+				xPath : getXpaths(target),
+				top : e.target.scrollingElement.scrollTop,
+				left : e.target.scrollingElement.scrollLeft
+			});
+		}
+	});
+});
+
 // return unique elements in the array, contains different xpath for the same element based on the implementation
 function getXpaths(e) {
 	var xpaths = [];

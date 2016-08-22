@@ -13,6 +13,8 @@ window.contentOfSelectedElement = "";
 window.recState;
 window.dimension_w = "";
 window.dimension_h = "";
+window.scroll_top = "";
+window.scroll_left = "";
 window.actions = [];
 
 chrome.history.onVisited.addListener(function(historyItem) {
@@ -62,8 +64,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             pushAction({
                 "browserAction" : window.scroll_browseraction,
                 "xpath": window.xpathOfSelectedElement,
-                "top": request.top,
-                "left": request.left
+                "top": request.top-window.scroll_top,
+                "left": request.left-window.scroll_left
             });
             break;
         case "recState":
@@ -76,6 +78,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 function pushAction(action) {
     chrome.windows.getCurrent(function(w) {
+        // manage window resize action
         if(w.width != window.dimension_w || w.height != window.dimension_h) {
             console.log('resize window: ['+w.width+'x'+w.height+']');
             window.dimension_w = w.width;
@@ -86,6 +89,17 @@ function pushAction(action) {
                 "height": window.dimension_h
             });
         }
+
+        // manage scroll
+        if(action.browserAction === window.scroll_browseraction) {
+            if(window.actions[window.actions.length-1]) {
+                if(window.actions[window.actions.length-1].browserAction === window.scroll_browseraction) {
+                    console.log('remove previous scroll in favour of the last one');
+                    window.actions.pop();
+                }
+            }
+        }
+
         window.actions.push(action);
         //fields reset
         console.log("reset xpathOfSelectedElement and contentOfSelectedElement");

@@ -61,9 +61,9 @@ document.addEventListener("scroll", function(e){
 
 // return unique elements in the array, contains different xpath for the same element based on the implementation
 function getXpaths(e) {
-	console.log('aaaaaaaaaa');
 	var xpaths = [];
-	xpaths.push(getElementInfo_Custom(e));
+	xpaths.push(getElementInfo_Custom(e, false));
+	xpaths.push(getElementInfo_Custom(e, true));
 	xpaths.push(getElementInfo_Moz(e));
 	//put here your implementation
 
@@ -77,5 +77,21 @@ function getXpaths(e) {
 		});
 	}
 
-	return uniqueXpaths(xpaths);
+	var pureXpaths = uniqueXpaths(xpaths);
+	pureXpaths.forEach(function(item, index) {
+		var b = document.evaluate(item, document, null, XPathResult.ANY_TYPE, null);
+		var c = b.iterateNext();
+		var i = 0;
+		while(c) {
+			c = b.iterateNext();
+			i++;
+		}
+		console.log('number of elements for xpath ['+item+']: '+i);
+		if(i > 1) {
+			console.log('remove xpath for a non unique result ['+item+']');
+			pureXpaths.splice(index, 1);
+		}
+	});
+
+	return pureXpaths;
 }

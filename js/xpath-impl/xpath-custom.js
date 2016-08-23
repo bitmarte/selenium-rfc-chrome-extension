@@ -1,4 +1,4 @@
-var getElementInfo_Custom = function selectedElement(element) {
+var getElementInfo_Custom = function selectedElement(element, isFull) {
 	// Get sibling information.
 	var getSibling = function(e, isFull) {
 		var sibling = {
@@ -103,5 +103,5 @@ var getElementInfo_Custom = function selectedElement(element) {
 		return str.replace(/^((\/){0,2}html)/, "/html");
 	}
 
-	return getXpath(element, false);
+	return getXpath(element, isFull);
 };

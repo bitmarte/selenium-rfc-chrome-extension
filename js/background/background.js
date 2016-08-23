@@ -113,30 +113,44 @@ function pushAction(action) {
 function toggleRec() {
     if(window.recState) {
         if(window.actions.length > 0) {
-            var onStopRequest = confirm(chrome.i18n.getMessage("onStopRequest_msg"));
-            if (onStopRequest) {
-                chrome.browserAction.setBadgeText({"text":""});
-                console.log('Stop recording');
-                console.log(JSON.stringify(window.actions));
-                //Download plan
-                chrome.downloads.download(
-                    {
-                        "url": URL.createObjectURL(new Blob([JSON.stringify(window.actions)])),
-                        "filename": "my-plan.json",
-                        "saveAs": true,
-                        "headers": [
-                            {
-                                "name": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ]
-                    }
-                );
-                //reset window size
-                console.log("reset window dimension");
-                window.dimension_w = "";
-                window.dimension_h = "";
-                window.recState = !window.recState;
+            //last browserAction is a successCondition
+            if(window.actions[window.actions.length-1].browserAction.includes("SUCCESS_CONDITION_")) {
+                var onStopRequest = confirm(chrome.i18n.getMessage("onStopRequest_msg"));
+                if (onStopRequest) {
+                    chrome.browserAction.setBadgeText({"text":""});
+                    console.log('Stop recording');
+                    console.log(JSON.stringify(window.actions));
+                    //Download plan
+                    chrome.downloads.download(
+                        {
+                            "url": URL.createObjectURL(new Blob([JSON.stringify(window.actions)])),
+                            "filename": "my-plan.json",
+                            "saveAs": true,
+                            "headers": [
+                                {
+                                    "name": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ]
+                        }
+                    );
+                    //reset window size
+                    console.log("reset window dimension");
+                    window.dimension_w = "";
+                    window.dimension_h = "";
+                    window.recState = !window.recState;
+                }
+            } else {
+                var noSuccessCondition = confirm(chrome.i18n.getMessage("onStopRequest_noSuccessCondition_msg"));
+                if(noSuccessCondition) {
+                    chrome.browserAction.setBadgeText({"text":""});
+                    console.log('Stop recording');
+                    //reset window size
+                    console.log("reset window dimension");
+                    window.dimension_w = "";
+                    window.dimension_h = "";
+                    window.recState = !window.recState;
+                }
             }
         } else {
             chrome.browserAction.setBadgeText({"text":""});

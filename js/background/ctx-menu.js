@@ -30,6 +30,13 @@ function buildContextMenu() {
                 });
 
             chrome.contextMenus.create({
+                "title" : chrome.i18n.getMessage("ctxMenu_ChangeLastXpathAction"),
+                "type" : "normal",
+                "id" : "changeLastXpathAction",
+                "contexts" : [ "all" ]
+            });
+
+            chrome.contextMenus.create({
                 "title" : chrome.i18n.getMessage("ctxMenu_RemoveLastAction"),
                 "type" : "normal",
                 "id" : "removeLastAction",
@@ -101,6 +108,13 @@ function conttextMenuHandler(info, tab) {
                     "xpath": window.xpathOfSelectedElement,
                     "content": window.contentOfSelectedElement
                 });
+            }
+            break;
+        case "changeLastXpathAction":
+            console.log('change last recorded xpath action');
+            var newXpath = prompt(chrome.i18n.getMessage("ctxMenu_ChangeLastXpathAction"), window.actions[window.actions.length-1].xpath[0]);
+            if(newXpath != null) {
+                window.actions[window.actions.length-1].xpath[0] = newXpath;
             }
             break;
         case "removeLastAction":

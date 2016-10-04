@@ -26,6 +26,9 @@
     "ctxMenu_RecStateStop": {
         "message": "Stop recording"
     },
+    "ctxMenu_ChangeLastXpathAction": {
+       "message": "Change last Xpath action" 
+    },
     "ctxMenu_RemoveLastAction": {
         "message": "Remove last action"
     },

@@ -2,7 +2,7 @@
 
 Record a whole navigation flow with success condition, export a JSON script that you can re-run with [Selenium Run From Configuration Client](https://github.com/bitmarte/selenium-rfc-client).
 
-<img src="./images/rec-mode.png" width="100"/>
+<img src="./images/rec-mode.png" width="200"/>
 
 <img src="./images/ctx-menu.png" width="600"/>
 

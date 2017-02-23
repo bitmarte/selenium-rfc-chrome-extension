@@ -4,7 +4,7 @@ Record a whole navigation flow with success condition, export a JSON script that
 
 <img src="./images/rec-mode.png" width="200"/>
 
-<img src="./images/ctx-menu.png" width="600"/>
+<img src="./images/ctx-menu.png" width="800"/>
 
 ## Requirements
  - node v4.4.3

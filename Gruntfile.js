@@ -94,24 +94,6 @@ module.exports = function(grunt) {
 					}
 				]
 			}
-		},
-		watch: {
-			scripts: {
-				files: [
-					'js/**',
-					'_locales/**'
-				],
-				tasks: [
-					'clean:dist',
-					'replace',
-					'fixmyjs',
-					'uglify',
-					'copy',
-					'clean:tmp'],
-				options: {
-					spawn: false
-				}
-			}
 		}
 	});
 	
@@ -123,7 +105,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-remove-logging");
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	grunt.registerTask(
 		'default',[
@@ -132,8 +113,7 @@ module.exports = function(grunt) {
 			'fixmyjs',
 			'uglify',
 			'copy',
-			'clean:tmp',
-			'watch'
+			'clean:tmp'
 		]
 	);
 

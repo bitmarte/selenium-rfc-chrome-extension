@@ -8,7 +8,7 @@ window.successconditionequals_browseraction = "SUCCESS_CONDITION_EQUALS";
 window.successconditioncontains_browseraction = "SUCCESS_CONDITION_CONTAINS";
 
 // debouncer time (in milliseconds)
-window.debouncer_time = 20;
+window.debouncer_time = 100;
 
 // runtime variables
 window.xpathOfSelectedElement = "";
@@ -81,15 +81,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 // return 0 if actions equals
 function compareAction(action1, action2) {
-    if(action1 !== undefined || action2 !== undefined) {
-        return 1;
-    } else {
+    if(action1 !== undefined && action2 !== undefined) {
         switch(action1.browserAction) {
             case window.gotourl_browseraction:
                 if(
                     action1.browserAction === window.gotourl_browseraction &&
                     action1.url === action2.url &&
-                    action1.timestamp <= (action2.timestamp-window.debouncer_time)
+                    (action2.timestamp - action1.timestamp) <= window.debouncer_time
                 ) {
                     return 0;
                 } else {
@@ -107,7 +105,7 @@ function compareAction(action1, action2) {
                     action1.browserAction === window.windowresize_browseraction &&
                     action1.width === action2.width &&
                     action1.height === action2.height &&
-                    action1.timestamp <= (action2.timestamp-window.debouncer_time)
+                    (action2.timestamp - action1.timestamp) <= window.debouncer_time
                 ) {
                     return 0;
                 } else {
@@ -120,7 +118,7 @@ function compareAction(action1, action2) {
                     action1.browserAction === action2.browserAction &&
                     action1.xpath[0] === action2.xpath[0] &&
                     action1.content === action2.content &&
-                    action1.timestamp <= (action2.timestamp-window.debouncer_time)
+                    (action2.timestamp - action1.timestamp) <= window.debouncer_time
                 ) {
                     return 0;
                 } else {
@@ -128,11 +126,15 @@ function compareAction(action1, action2) {
                 }
                 break;
         }
+    } else {
+        return 1;
     }
 }
 
 function pushAction(action) {
     chrome.windows.getCurrent(function(w) {
+        action.timestamp = Date.now();
+
         // debouncing
         var lastAction = window.actions[window.actions.length-1];
 
@@ -151,7 +153,7 @@ function pushAction(action) {
                     "browserAction" : window.windowresize_browseraction,
                     "width": window.dimension_w,
                     "height": window.dimension_h,
-                    "timestamp": timestamp = Date.now()
+                    "timestamp": Date.now()
                 });
             }
             
@@ -167,13 +169,12 @@ function pushAction(action) {
             }
         }
 
-        action.timestamp = Date.now();
-
         // debouncing
         if(compareAction(lastAction, action) === 0) {
             // Do nothing
             console.log('Duplicated action ['+lastAction.browserAction+'] at the same element, ignore it!');
         } else {
+            action.timestamp = Date.now();
             window.actions.push(action);
         }
         

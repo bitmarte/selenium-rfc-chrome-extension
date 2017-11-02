@@ -19,7 +19,7 @@ First of all, clone this repo into your workspace directory.
 ## Run & Develop
 
 	$ cd /<myWorkspace>/selenium-rfc-chrome-extension
-	$ grunt -v
+	$ grunt dist --target=dev
 
  - Go to Chrome extensions tab (chrome://extensions/)
  - Check on "develop mode"
@@ -34,7 +34,7 @@ First of all, clone this repo into your workspace directory.
 Generate a dist release, ready for your Google Chrome browser
 
  	$ cd /<myWorkspace>/selenium-rfc-chrome-extension
-	$ grunt -v dist
+ 	$ grunt dist
 
 ### Upload an unpacked version
 

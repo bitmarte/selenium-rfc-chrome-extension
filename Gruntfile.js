@@ -1,4 +1,6 @@
 module.exports = function(grunt) {
+	var target = grunt.option('target') || 'prod';
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		clean: {
@@ -48,15 +50,34 @@ module.exports = function(grunt) {
 			}
 		},
 		removelogging: {
-			dist: {
+			prod: {
 				src: "tmp/js/**/*.js"
-			}
+			},
+			dev: {}
 		},
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
-			dist: {
+			dev: {
+				options: {
+					beautify: true,
+					compress: false
+				},
+				files: {
+					'dist/js/background-min.js': [
+						'tmp/js/background/background.js',
+						'tmp/js/background/ctx-menu.js',
+						'tmp/js/background/startup.js'
+					],
+					'dist/js/content-min.js': [
+						'tmp/js/content/content.js',
+						'tmp/js/xpath-impl/xpath-custom.js',
+						'tmp/js/xpath-impl/xpath-moz.js'
+					]
+				}
+			},
+			prod: {
 				files: {
 					'dist/js/background-min.js': [
 						'tmp/js/background/background.js',
@@ -106,24 +127,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	
-	grunt.registerTask(
-		'default',[
-			'clean:dist',
-			'replace',
-			'fixmyjs',
-			'uglify',
-			'copy',
-			'clean:tmp'
-		]
-	);
 
 	grunt.registerTask(
 		'dist',[
 			'clean:dist',
 			'replace',
 			'fixmyjs',
-			'removelogging',
-			'uglify',
+			'removelogging:' + target,
+			'uglify:' + target,
 			'copy',
 			'clean:tmp'
 		]

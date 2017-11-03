@@ -1,6 +1,7 @@
 // browser actions
 window.gotourl_browseraction = "GO_TO_URL";
 window.click_browseraction = "CLICK";
+window.dblClick_browseraction = "DOUBLE_CLICK";
 window.set_browseraction = "SET";
 window.scroll_browseraction = "SCROLL";
 window.windowresize_browseraction = "WINDOW_RESIZE";
@@ -49,6 +50,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             console.log('Click on element ['+window.xpathOfSelectedElement+']');
             pushAction({
                 "browserAction" : window.click_browseraction,
+                "xpath": window.xpathOfSelectedElement
+            });    
+            break;
+        case "onDblClick":
+            console.log('DblClick on element ['+window.xpathOfSelectedElement+']');
+            pushAction({
+                "browserAction" : window.dblClick_browseraction,
                 "xpath": window.xpathOfSelectedElement
             });    
             break;

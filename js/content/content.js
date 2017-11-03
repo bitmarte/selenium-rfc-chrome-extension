@@ -26,6 +26,21 @@ document.addEventListener("click", function(e){
 	});
 });
 
+document.addEventListener("dblclick", function(e){
+	chrome.runtime.sendMessage({message:"recState"}, function(response){
+		if(response.recState) {
+		    e = e || window.event;
+			var target = e.target || e.srcElement;
+			var xpaths = getXpaths(target);
+			console.log('dblclick on xpath: '+ xpaths);
+			chrome.runtime.sendMessage({
+				message : "onDblClick",
+				xPath : xpaths
+			});
+		}
+	});
+});
+
 document.addEventListener("change", function(e){
 	chrome.runtime.sendMessage({message:"recState"}, function(response){
 		if(response.recState) {

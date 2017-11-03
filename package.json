@@ -1,6 +1,6 @@
 {
   "name": "Selenium-rfc-recorder",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "Chrome extension for recording your test run!",
   "devDependencies": {
     "grunt": "^1.0.1",

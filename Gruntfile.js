@@ -72,6 +72,7 @@ module.exports = function(grunt) {
 					],
 					'dist/js/content-min.js': [
 						'tmp/js/content/content.js',
+						'tmp/js/content/event-listener.js',
 						'tmp/js/xpath-impl/xpath-custom.js',
 						'tmp/js/xpath-impl/xpath-moz.js'
 					]
@@ -86,6 +87,7 @@ module.exports = function(grunt) {
 					],
 					'dist/js/content-min.js': [
 						'tmp/js/content/content.js',
+						'tmp/js/content/event-listener.js',
 						'tmp/js/xpath-impl/xpath-custom.js',
 						'tmp/js/xpath-impl/xpath-moz.js'
 					]

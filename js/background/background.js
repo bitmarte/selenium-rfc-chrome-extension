@@ -121,6 +121,15 @@ function compareAction(action1, action2) {
                 }
                 break;
 
+            case window.successconditionequals_browseraction:
+            case window.successconditioncontains_browseraction:
+                if(action1.browserAction === action2.browserAction) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+                break;
+
             default:
                 if(
                     action1.browserAction === action2.browserAction &&

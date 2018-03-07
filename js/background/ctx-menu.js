@@ -1,3 +1,13 @@
+// return true if prev action is not a SUCCESS CONDITION
+function isSuccessConditionEnabled() {
+    if(window.actions[window.actions.length-1].browserAction === window.successconditionequals_browseraction ||
+        window.actions[window.actions.length-1].browserAction === window.successconditioncontains_browseraction) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function buildContextMenu() {
     chrome.contextMenus.removeAll();
     if (window.recState) {
@@ -12,7 +22,8 @@ function buildContextMenu() {
                 "title" : chrome.i18n.getMessage("ctxMenu_SuccessConditionMain"),
                 "type" : "normal",
                 "id" : "recSuccessCondition",
-                "contexts" : [ "all" ]
+                "contexts" : [ "all" ],
+                "enabled" : isSuccessConditionEnabled()
             });
                 chrome.contextMenus.create({
                     "parentId" : "recSuccessCondition",
